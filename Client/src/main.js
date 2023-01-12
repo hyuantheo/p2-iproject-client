@@ -17,6 +17,8 @@ app.use(vue3GoogleLogin, {
     clientId: '1075900266570-v7681ttv9f1s7ro435f69etjcn9u067u.apps.googleusercontent.com'
   })
 
+app.provide("baseUrl", "https://genshin-wikia-production.up.railway.app")
+
 app.use(router)
 app.use(pinia)
 

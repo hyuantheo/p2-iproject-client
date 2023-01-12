@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 const undeployed = "http://localhost:3000";
+const deployed = "https://genshin-wikia-production.up.railway.app"
 
 export const useGenshinStore = defineStore("Genshin Impact", {
   state() {
@@ -21,7 +22,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
       try {
         let { data } = await axios({
           method: "POST",
-          url: undeployed + "/register",
+          url: deployed + "/register",
           data: { email, password },
         });
         // SUCCESS >> REDIRECT TO LOGIN
@@ -45,7 +46,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
       try {   
         let { data } = await axios({
           method: 'PATCH',
-          url: undeployed + '/verify?id=' + id
+          url: deployed + '/verify?id=' + id
         })
         Swal.fire({
           icon: "success",
@@ -66,7 +67,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
       try {
         let { data } = await axios({
           method: "POST",
-          url: undeployed + "/login",
+          url: deployed + "/login",
           data: { email, password },
         });
         this.token = data.access_token;
@@ -91,7 +92,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
     async googleLogin(response){
       await axios({
           method: 'POST',
-          url: undeployed + '/google-login',
+          url: deployed + '/google-login',
           headers: {google_token: response.credential}
         })
         .then((res) => {
@@ -125,7 +126,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
       try {
         let {data} = await axios({
             method: 'GET',
-            url: undeployed + '/characters'
+            url: deployed + '/characters'
         })
         this.charaList = data
       } catch (err) {
@@ -142,7 +143,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
         try {
             let {data} = await axios({
                 method: 'GET',
-                url: undeployed + '/characters/' + id
+                url: deployed + '/characters/' + id
             })
             this.chara = data
         } catch (err) {
@@ -154,7 +155,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
       try {
         let {data} = await axios({
           method: 'GET',
-          url: undeployed + '/weapons'
+          url: deployed + '/weapons'
         })
         this.weaponList = data
       } catch (err) {
@@ -167,7 +168,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
         console.log(name);
         let {data} = await axios({
           method: 'GET',
-          url: undeployed + '/weapons/' + name
+          url: deployed + '/weapons/' + name
         })
         this.singleWeapon = data
       } catch (err) {
@@ -180,7 +181,7 @@ export const useGenshinStore = defineStore("Genshin Impact", {
         try {
             let {data} = await axios({
                 method: 'GET',
-                url: undeployed + '/account?uid=' + uid,
+                url: deployed + '/account?uid=' + uid,
                 headers: {access_token: localStorage.getItem('access_token')}
             })
             this.account = data
